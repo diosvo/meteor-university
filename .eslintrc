@@ -1,0 +1,21 @@
+{
+  "jsx-runtime": {
+    "plugins": ["react"],
+    "plugin:react/jxs-runtime": "extends",
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "rules": {
+      "react/jsx-uses-react": "error"
+    }
+  },
+  "settings": {
+    "react": {
+      "createClass": "createReactClass",
+      "pragma": "React",
+      "version": "detect"
+    }
+  }
+}

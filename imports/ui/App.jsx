@@ -1,11 +1,9 @@
-import React from 'react';
-import { Hello } from './Hello.jsx';
-import { Info } from './Info.jsx';
+import { ContactForm } from "./ContactForm";
+import React from "react";
 
 export const App = () => (
   <div>
-    <h1>Welcome to Meteor!</h1>
-    <Hello/>
-    <Info/>
+    <h1>Meteor Wallet</h1>
+    <ContactForm />
   </div>
 );
