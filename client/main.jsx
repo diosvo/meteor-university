@@ -1,11 +1,12 @@
-import { Meteor } from "meteor/meteor";
-import { createRoot } from "react-dom/client";
-import { App } from "/imports/ui/App";
 import React from "react";
+import { createRoot } from "react-dom/client";
+window.React = React;
 
-const container = document.getElementById("application");
-const root = createRoot(container);
+import { Meteor } from "meteor/meteor";
+import { App } from "/imports/ui/App";
+
+const rootElement = document.getElementById("application");
 
 Meteor.startup(() => {
-  root.render(<App tab="home" />);
+  createRoot(rootElement).render(<App tab="home" />);
 });

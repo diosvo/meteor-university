@@ -6,9 +6,6 @@
       "ecmaFeatures": {
         "jsx": true
       }
-    },
-    "rules": {
-      "react/jsx-uses-react": "error"
     }
   },
   "settings": {
@@ -17,5 +14,6 @@
       "pragma": "React",
       "version": "detect"
     }
-  }
+  },
+  "extends": ["eslint:recommended", "plugin:react/recommended"]
 }
