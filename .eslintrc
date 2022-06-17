@@ -1,11 +1,7 @@
 {
-  "jsx-runtime": {
-    "plugins": ["react"],
-    "plugin:react/jxs-runtime": "extends",
-    "parserOptions": {
-      "ecmaFeatures": {
-        "jsx": true
-      }
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     }
   },
   "settings": {
@@ -15,5 +11,6 @@
       "version": "detect"
     }
   },
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
+  "extends": ["eslint:all", "plugin:react/all", "plugin:react/jxs-runtime"],
+  "plugins": ["react"]
 }
