@@ -17,8 +17,15 @@ Meteor.methods({
       createdAt: new Date(),
     });
   },
-  "contacts.remove"({ event, contactId }) {
-    event.preventDefault();
+  "contacts.archive"(contactId) {
+    check(contactId, String);
+    return ContactsCollection.update(
+      { _id: contactId },
+      { $set: { archived: true } }
+    );
+  },
+  "contacts.remove"(contactId) {
+    check(contactId, String);
     return ContactsCollection.remove(contactId);
   },
   "contacts.deleteAll"() {

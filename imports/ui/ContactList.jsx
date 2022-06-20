@@ -9,9 +9,26 @@ import ContactsCollection from "../api/ContactsCollection";
 export default ContactList = () => {
   const isLoading = useSubscribe("contacts");
 
-  const contacts = useFind(() =>
-    ContactsCollection.find({}, { sort: { createdAt: -1 } })
+  const contacts = useFind(
+    () =>
+      ContactsCollection.find(
+        { archived: { $ne: true } },
+        { sort: { createdAt: -1 } }
+      ),
+    []
   );
+
+  const archive = (event, contactId) => {
+    event.preventDefault();
+    Meteor.call("contacts.archive", contactId);
+  };
+
+  const remove = (event, contactId) => {
+    event.preventDefault();
+    Meteor.call("contacts.remove", contactId);
+  };
+
+  const deleteAll = () => Meteor.call("contacts.deleteAll");
 
   if (isLoading()) {
     return <LinearProgress />;
@@ -25,9 +42,15 @@ export default ContactList = () => {
           size="small"
           variant="text"
           color="inherit"
-          onClick={(event) =>
-            Meteor.call("contacts.remove", { event, contactId: contact._id })
-          }
+          onClick={(event) => archive(event, contact._id)}
+        >
+          Archive
+        </Button>
+        <Button
+          size="small"
+          variant="text"
+          color="inherit"
+          onClick={(event) => remove(event, contact._id)}
         >
           Remove
         </Button>
@@ -39,10 +62,7 @@ export default ContactList = () => {
     <div>
       <h2>Contact List</h2>
       <Stack spacing={2} direction="row">
-        <Button
-          variant="text"
-          onClick={() => Meteor.call("contacts.deleteAll")}
-        >
+        <Button variant="text" onClick={() => deleteAll()}>
           Delete All
         </Button>
       </Stack>
