@@ -1,24 +1,39 @@
 import { Meteor } from "meteor/meteor";
 import { useState } from "react";
+import BannerMessage from "./libs/BannerMessage";
+import MessageEnum from "./utils/MessageModel";
 
 export default ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
 
   const onSave = () => {
-    Meteor.call("contacts.insert", { name, email, imageUrl }, ({ error }) => {
-      if (error) {
-        return alert(error);
+    Meteor.call(
+      "contacts.insert",
+      { name, email, imageUrl },
+      (errorResponse) => {
+        if (errorResponse) {
+          setError(errorResponse.error);
+        } else {
+          setName("");
+          setEmail("");
+          setImageUrl("");
+          setSuccess("Contact is created successfully.");
+        }
       }
-      setName("");
-      setEmail("");
-      setImageUrl("");
-    });
+    );
   };
 
   return (
     <form>
+      {error && <BannerMessage message={error} />}
+      {success && (
+        <BannerMessage message={success} severity={MessageEnum.SUCCESS} />
+      )}
+
       <div>
         <label htmlFor="name">Name</label>
         <input
@@ -48,7 +63,7 @@ export default ContactForm = () => {
       </div>
       <div>
         <button type="button" onClick={onSave}>
-          Save Contact
+          Save
         </button>
       </div>
     </form>
