@@ -1,7 +1,7 @@
 import { useTracker } from "meteor/react-meteor-data";
 import { ContactsCollection } from "../api/ContactsCollection";
 
-export const ContactList = () => {
+export default ContactList = () => {
   const contacts = useTracker(() => {
     return ContactsCollection.find({}).fetch(); // web socket + DDP = tracker
   });

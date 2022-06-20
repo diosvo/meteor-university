@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { ContactsCollection } from "../api/ContactsCollection";
 
-export const ContactForm = () => {
+export default ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [imageUrl, setImageUrl] = useState("");
