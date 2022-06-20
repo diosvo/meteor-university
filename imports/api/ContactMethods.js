@@ -8,4 +8,7 @@ Meteor.methods({
     }
     return ContactsCollection.insert({ name, email, imageUrl });
   },
+  "contacts.deleteAll"() {
+    return ContactsCollection.remove({});
+  },
 });
