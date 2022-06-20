@@ -6,7 +6,7 @@ import ContactsCollection from "../api/ContactsCollection";
 
 export default ContactList = () => {
   const contacts = useTracker(() => {
-    return ContactsCollection.find({}).fetch(); // web socket + DDP = tracker
+    return ContactsCollection.find({}, { sort: { createdAt: -1 } }).fetch(); // web socket + DDP = tracker
   });
 
   return (
