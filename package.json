@@ -34,6 +34,7 @@
     "@babel/preset-react": "^7.17.12",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@mui/icons-material": "^5.8.4",
     "@mui/material": "^5.8.4",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
