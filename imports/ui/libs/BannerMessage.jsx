@@ -1,14 +1,17 @@
 import Alert from "@mui/material/Alert";
-import { grey } from "@mui/material/colors";
-import Stack from "@mui/material/Stack";
-import MessageEnum from "../utils/MessageModel";
+import { forwardRef } from "react";
 
-export default BannerMessage = ({ message, severity = MessageEnum.ERROR }) => {
-  return (
-    <Stack sx={{ width: "100%" }}>
-      <Alert variant="outlined" severity={severity} color={severity}>
-        <span style={{ color: grey[800] }}> {message}</span>
-      </Alert>
-    </Stack>
-  );
-};
+const BannerMessage = forwardRef((props, ref) => (
+  <Alert
+    ref={ref}
+    {...props}
+    elevation={6}
+    variant="outlined"
+    color={props.severity}
+    severity={props.severity}
+  >
+    {props.message}
+  </Alert>
+));
+
+export default BannerMessage;
