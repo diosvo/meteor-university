@@ -1,8 +1,8 @@
 import { Meteor } from "meteor/meteor";
 import { useState } from "react";
-import AlertMessage from "./libs/AlertMessage";
-import BannerMessage from "./libs/BannerMessage";
-import MessageEnum from "./utils/MessageModel";
+import AlertMessage from "../../libs/AlertMessage";
+import BannerMessage from "../../libs/BannerMessage";
+import MessageEnum from "../../utils/MessageModel";
 
 export default ContactForm = () => {
   const [name, setName] = useState("");
