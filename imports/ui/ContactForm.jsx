@@ -1,5 +1,6 @@
 import { Meteor } from "meteor/meteor";
 import { useState } from "react";
+import AlertMessage from "./libs/AlertMessage";
 import BannerMessage from "./libs/BannerMessage";
 import MessageEnum from "./utils/MessageModel";
 
@@ -8,7 +9,7 @@ export default ContactForm = () => {
   const [email, setEmail] = useState("");
   const [imageUrl, setImageUrl] = useState("");
   const [error, setError] = useState("");
-  const [success, setSuccess] = useState("");
+  const [snackbar, showSnackbar] = useState(false);
 
   const onSave = () => {
     Meteor.call(
@@ -21,18 +22,17 @@ export default ContactForm = () => {
           setName("");
           setEmail("");
           setImageUrl("");
-          setSuccess("Contact is created successfully.");
+          showSnackbar(true);
         }
       }
     );
+    showSnackbar(false);
   };
 
   return (
     <form>
-      {error && <BannerMessage message={error} />}
-      {success && (
-        <BannerMessage message={success} severity={MessageEnum.SUCCESS} />
-      )}
+      {error && <BannerMessage message={error} severity={MessageEnum.ERROR} />}
+      {snackbar && <AlertMessage message="The contact has been created." />}
 
       <div>
         <label htmlFor="name">Name</label>

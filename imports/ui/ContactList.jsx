@@ -3,7 +3,6 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
 import { Meteor } from "meteor/meteor";
 import { useFind, useSubscribe } from "meteor/react-meteor-data";
-import { memo } from "react";
 import ContactsCollection from "../api/ContactsCollection";
 
 export default ContactList = () => {
@@ -34,7 +33,7 @@ export default ContactList = () => {
     return <LinearProgress />;
   }
 
-  const ContactItem = memo(({ contact }) => {
+  const ContactItem = React.memo(({ contact }) => {
     return (
       <li>
         {contact.name} - {contact.email}
