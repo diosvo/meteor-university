@@ -36,7 +36,7 @@ export default ContactList = () => {
   const ContactItem = React.memo(({ contact }) => {
     return (
       <li>
-        {contact.name} - {contact.email}
+        {contact.name} - {contact.email} - {contact.walletId}
         <Button
           size="small"
           variant="text"

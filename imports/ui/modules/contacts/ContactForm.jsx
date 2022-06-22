@@ -8,13 +8,15 @@ export default ContactForm = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [imageUrl, setImageUrl] = useState("");
+  const [walletId, setWalletId] = useState("");
+
   const [error, setError] = useState("");
   const [snackbar, showSnackbar] = useState(false);
 
   const onSave = () => {
     Meteor.call(
       "contacts.insert",
-      { name, email, imageUrl },
+      { name, email, imageUrl, walletId },
       (errorResponse) => {
         if (errorResponse) {
           setError(errorResponse.error);
@@ -22,6 +24,7 @@ export default ContactForm = () => {
           setName("");
           setEmail("");
           setImageUrl("");
+          setWalletId("");
           showSnackbar(true);
         }
       }
@@ -32,7 +35,13 @@ export default ContactForm = () => {
   return (
     <form>
       {error && <BannerMessage message={error} severity={MessageEnum.ERROR} />}
-      {snackbar && <AlertMessage message="The contact has been created." />}
+      {snackbar && (
+        <AlertMessage
+          open={snackbar}
+          setOpen={showSnackbar}
+          message="The contact has been created."
+        />
+      )}
 
       <div>
         <label htmlFor="name">Name</label>
@@ -59,6 +68,15 @@ export default ContactForm = () => {
           type="text"
           value={imageUrl}
           onChange={(event) => setImageUrl(event.target.value)}
+        />
+      </div>
+      <div>
+        <label htmlFor="walletId">Wallet Id</label>
+        <input
+          id="walletId"
+          type="text"
+          value={walletId}
+          onChange={(event) => setWalletId(event.target.value)}
         />
       </div>
       <div>
