@@ -2,9 +2,12 @@ import Snackbar from "@mui/material/Snackbar";
 import MessageEnum from "../utils/MessageModel";
 import BannerMessage from "./BannerMessage";
 
-export default AlertMessage = ({ message, severity = MessageEnum.SUCCESS }) => {
-  const [open, setOpen] = React.useState(true);
-
+export default AlertMessage = ({
+  open,
+  setOpen,
+  message,
+  severity = MessageEnum.SUCCESS,
+}) => {
   if (!message) {
     return null;
   }
