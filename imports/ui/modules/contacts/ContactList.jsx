@@ -1,9 +1,9 @@
 import Button from "@mui/material/Button";
-import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
 import { Meteor } from "meteor/meteor";
 import { useFind, useSubscribe } from "meteor/react-meteor-data";
 import ContactsCollection from "../../../api/contacts/ContactsCollection";
+import LoadingProgress from "../../libs/LoadingProgress";
 
 export default ContactList = () => {
   const isLoading = useSubscribe("contacts");
@@ -30,7 +30,7 @@ export default ContactList = () => {
   const deleteAll = () => Meteor.call("contacts.deleteAll");
 
   if (isLoading()) {
-    return <LinearProgress />;
+    return <LoadingProgress />;
   }
 
   const ContactItem = React.memo(({ contact }) => {
