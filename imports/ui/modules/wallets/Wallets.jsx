@@ -1,4 +1,5 @@
 import Button from "@mui/material/Button";
+import { Meteor } from "meteor/meteor";
 import { useFind } from "meteor/react-meteor-data";
 import { useState } from "react";
 import ContactsCollection from "../../../api/contacts/ContactsCollection";
@@ -9,7 +10,7 @@ export default Wallets = () => {
   const [open, setOpen] = useState(false);
   const [isTransfer, setIsTransfer] = useState(false);
   const [amount, setAmount] = useState(0);
-  const [destinationWallet, setDestinationWallet] = useState({});
+  const [targetWallet, setTargetWallet] = useState({});
   const [error, setError] = useState("");
 
   const contacts = useFind(
@@ -27,6 +28,28 @@ export default Wallets = () => {
     currency: "USD",
   };
 
+  const addTransaction = () => {
+    Meteor.call(
+      "transactions.insert",
+      {
+        isTransfer,
+        sourceWalletId: wallet._id,
+        targetWalletId: targetWallet?.walletId || "",
+        amount: Number(amount),
+      },
+      (errorResponse) => {
+        if (errorResponse) {
+          setError(errorResponse.error);
+        } else {
+          setOpen(false);
+          setTargetWallet({});
+          setAmount(0);
+          setError("");
+        }
+      }
+    );
+  };
+
   return (
     <>
       <div style={{ backgroundColor: "lightgray" }}>
@@ -40,6 +63,7 @@ export default Wallets = () => {
           color="inherit"
           onClick={() => {
             setIsTransfer(false);
+            setError("");
             setOpen(true);
           }}
         >
@@ -51,6 +75,7 @@ export default Wallets = () => {
           color="inherit"
           onClick={() => {
             setIsTransfer(true);
+            setError("");
             setOpen(true);
           }}
         >
@@ -71,8 +96,8 @@ export default Wallets = () => {
             {isTransfer && (
               <ContactSelect
                 contacts={contacts}
-                contact={destinationWallet}
-                setContact={setDestinationWallet}
+                contact={targetWallet}
+                setContact={setTargetWallet}
               />
             )}
 
@@ -81,6 +106,7 @@ export default Wallets = () => {
               <input
                 id="amount"
                 type="number"
+                min={0}
                 value={amount}
                 placeholder="0.00"
                 onChange={(event) => setAmount(event.target.value)}
@@ -89,11 +115,7 @@ export default Wallets = () => {
           </>
         }
         actions={
-          <button
-            onClick={() => {
-              console.log(amount, destinationWallet);
-            }}
-          >
+          <button onClick={addTransaction}>
             {isTransfer ? "Transfer" : "Add"}
           </button>
         }

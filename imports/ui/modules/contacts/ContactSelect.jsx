@@ -9,6 +9,7 @@ export default ContactSelect = ({ contacts, contact, setContact }) => {
       id="contact-select"
       value={contact}
       options={contacts}
+      disabled={contacts.length < 1}
       onChange={(event, value) => {
         event.preventDefault();
         setContact(value);

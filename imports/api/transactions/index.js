@@ -1,1 +1,2 @@
 import "./TransactionsCollection";
+import "./TransactionsMethods";
