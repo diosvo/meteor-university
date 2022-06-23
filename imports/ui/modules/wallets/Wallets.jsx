@@ -1,13 +1,25 @@
 import Button from "@mui/material/Button";
+import { useFind } from "meteor/react-meteor-data";
 import { useState } from "react";
+import ContactsCollection from "../../../api/contacts/ContactsCollection";
 import AlertDialog from "../../libs/AlertDialog";
+import ContactSelect from "../contacts/ContactSelect";
 
 export default Wallets = () => {
   const [open, setOpen] = useState(false);
   const [isTransfer, setIsTransfer] = useState(false);
   const [amount, setAmount] = useState(0);
-  const [destinationWallet, setDestinationWallet] = useState("");
+  const [destinationWallet, setDestinationWallet] = useState({});
   const [error, setError] = useState("");
+
+  const contacts = useFind(
+    () =>
+      ContactsCollection.find(
+        { archived: { $ne: true } },
+        { sort: { createdAt: -1 } }
+      ),
+    []
+  );
 
   const wallet = {
     _id: "1111",
@@ -57,16 +69,11 @@ export default Wallets = () => {
         body={
           <>
             {isTransfer && (
-              <div>
-                <label htmlFor="destination">Destination</label>
-                <input
-                  id="destination"
-                  type="string"
-                  value={destinationWallet}
-                  placeholder="0.00"
-                  onChange={(event) => setDestinationWallet(event.target.value)}
-                />
-              </div>
+              <ContactSelect
+                contacts={contacts}
+                contact={destinationWallet}
+                setContact={setDestinationWallet}
+              />
             )}
 
             <div>
