@@ -8,4 +8,13 @@ const CapitalizeButton = createTheme({
   },
 });
 
-export { CapitalizeButton };
+const DefaultColors = createTheme({
+  palette: {
+    type: "light",
+    primary: {
+      main: "#4F46E5",
+    },
+  },
+});
+
+export { CapitalizeButton, DefaultColors };

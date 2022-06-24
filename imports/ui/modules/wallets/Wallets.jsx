@@ -1,5 +1,6 @@
+import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Meteor } from "meteor/meteor";
+import { grey, red } from "@mui/material/colors";
 import { useFind, useSubscribe } from "meteor/react-meteor-data";
 import { useState } from "react";
 import ContactsCollection from "../../../api/contacts/ContactsCollection";
@@ -62,37 +63,54 @@ export default Wallets = () => {
 
   return (
     <>
-      <div style={{ backgroundColor: "lightgray" }}>
-        <div>wallet id: {wallet._id}</div>
-        <div>
-          balance: {wallet.balance} {wallet.currency}
-        </div>
-        <Button
-          size="small"
-          variant="text"
-          color="inherit"
-          onClick={() => {
-            setIsTransfer(false);
-            setError("");
-            setOpen(true);
-          }}
-        >
-          Add
-        </Button>
-        <Button
-          size="small"
-          variant="text"
-          color="inherit"
-          onClick={() => {
-            setIsTransfer(true);
-            setError("");
-            setOpen(true);
-          }}
-        >
-          Transfer
-        </Button>
-      </div>
+      <Box
+        component="div"
+        variant="outlined"
+        sx={{
+          p: 2,
+          boxShadow: 1,
+          borderRadius: 2,
+          border: "1px solid" + grey[300],
+        }}
+      >
+        <Box sx={{ color: grey[700], typography: "body2" }}>
+          <div style={{ marginBottom: "0.5rem" }}>Main account</div>
+          <div>Wallet ID:</div>
+        </Box>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <h2>{wallet._id}</h2>
+          <h2>
+            <span style={{ color: red[600], marginRight: "0.5rem" }}>
+              {wallet.balance}
+            </span>
+            {wallet.currency}
+          </h2>
+        </Box>
+        <Box sx={{ "& button": { mr: 1 } }}>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setIsTransfer(false);
+              setError("");
+              setOpen(true);
+            }}
+          >
+            Add
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              setIsTransfer(true);
+              setError("");
+              setOpen(true);
+            }}
+          >
+            Transfer
+          </Button>
+        </Box>
+      </Box>
 
+      {/* Actions */}
       <AlertDialog
         open={open}
         setOpen={setOpen}
