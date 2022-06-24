@@ -39,7 +39,13 @@ export default Wallets = () => {
       },
       (errorResponse) => {
         if (errorResponse) {
-          setError(errorResponse.message);
+          if (errorResponse.error) {
+            setError(errorResponse.message);
+          } else {
+            errorResponse?.details.forEach((error) => {
+              setError(error.message);
+            });
+          }
         } else {
           setOpen(false);
           setTargetWallet({});
