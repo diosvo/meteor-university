@@ -1,1 +1,2 @@
 import "./WalletsCollection";
+import "./WalletsPublication";

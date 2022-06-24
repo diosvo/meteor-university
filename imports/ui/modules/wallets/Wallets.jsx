@@ -1,17 +1,16 @@
 import Button from "@mui/material/Button";
 import { Meteor } from "meteor/meteor";
-import { useFind } from "meteor/react-meteor-data";
+import { useFind, useSubscribe } from "meteor/react-meteor-data";
 import { useState } from "react";
 import ContactsCollection from "../../../api/contacts/ContactsCollection";
+import WalletsCollection from "../../../api/wallets/WalletsCollection";
 import AlertDialog from "../../libs/AlertDialog";
+import LoadingProgress from "../../libs/LoadingProgress";
 import ContactSelect from "../contacts/ContactSelect";
 
 export default Wallets = () => {
-  const [open, setOpen] = useState(false);
-  const [isTransfer, setIsTransfer] = useState(false);
-  const [amount, setAmount] = useState(0);
-  const [targetWallet, setTargetWallet] = useState({});
-  const [error, setError] = useState("");
+  const isLoadingContacts = useSubscribe("contacts");
+  const isLoadingWallet = useSubscribe("wallets");
 
   const contacts = useFind(
     () =>
@@ -21,12 +20,13 @@ export default Wallets = () => {
       ),
     []
   );
+  const [wallet] = useFind(() => WalletsCollection.find());
 
-  const wallet = {
-    _id: "1111",
-    balance: 5,
-    currency: "USD",
-  };
+  const [open, setOpen] = useState(false);
+  const [isTransfer, setIsTransfer] = useState(false);
+  const [amount, setAmount] = useState(0);
+  const [targetWallet, setTargetWallet] = useState({});
+  const [error, setError] = useState("");
 
   const addTransaction = () => {
     Meteor.call(
@@ -49,6 +49,10 @@ export default Wallets = () => {
       }
     );
   };
+
+  if (isLoadingContacts() || isLoadingWallet()) {
+    return <LoadingProgress />;
+  }
 
   return (
     <>
