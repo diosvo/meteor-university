@@ -1,26 +1,15 @@
-import { check } from "meteor/check";
 import { Meteor } from "meteor/meteor";
+import TransactionSchema from "../../ui/schemas/TransactionSchema";
 import TransactionsCollection from "./TransactionsCollection";
 
 Meteor.methods({
-  "transactions.insert"({
-    isTransfer,
-    sourceWalletId,
-    targetWalletId,
-    amount,
-  }) {
-    check(isTransfer, Boolean);
-    check(sourceWalletId, String);
-    check(targetWalletId, String);
-    check(amount, Number);
+  "transactions.insert"(args) {
+    const schema = TransactionSchema(args);
+    // https://github.com/longshotlabs/simpl-schema#cleaning-objects
+    const cleanArgs = schema.clean(args);
+    schema.validate(cleanArgs);
 
-    if (!sourceWalletId) {
-      throw new Meteor.Error("Source wallet is required");
-    }
-    if (!amount || amount <= 0) {
-      throw new Meteor.Error("Amount is required (must be greater than 0)");
-    }
-
+    const { isTransfer, sourceWalletId, targetWalletId, amount } = args;
     return TransactionsCollection.insert({
       type: isTransfer ? "transfer" : "add",
       source: sourceWalletId,

@@ -1,3 +1,4 @@
+import { red } from "@mui/material/colors";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
@@ -16,10 +17,15 @@ const AlertDialog = forwardRef(
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
       <DialogContent>
-        <DialogContentText id="alert-dialog-description">
-          {errorMessage && <h3>{errorMessage}</h3>}
-          {body}
-        </DialogContentText>
+        {errorMessage && (
+          <DialogContentText
+            sx={{ color: red[500] }}
+            id="alert-dialog-description"
+          >
+            {errorMessage}
+          </DialogContentText>
+        )}
+        {body}
       </DialogContent>
       <DialogActions>{actions}</DialogActions>
     </Dialog>
