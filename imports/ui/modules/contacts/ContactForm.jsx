@@ -19,7 +19,7 @@ export default ContactForm = () => {
       { name, email, imageUrl, walletId },
       (errorResponse) => {
         if (errorResponse) {
-          setError(errorResponse.error);
+          setError(errorResponse.message);
         } else {
           setName("");
           setEmail("");

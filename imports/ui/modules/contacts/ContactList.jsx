@@ -61,7 +61,7 @@ export default ContactList = () => {
     <div>
       <h2>Contact List</h2>
       <Stack spacing={2} direction="row">
-        <Button variant="text" onClick={() => deleteAll()}>
+        <Button variant="text" onClick={deleteAll}>
           Delete All
         </Button>
       </Stack>
