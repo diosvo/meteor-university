@@ -18,4 +18,8 @@ export default ContactSchema = new SimpleSchema({
   createdAt: {
     type: Date,
   },
+  archived: {
+    type: Boolean,
+    optional: true,
+  },
 });
