@@ -10,12 +10,11 @@ class TransactionsMongoCollection extends Mongo.Collection {
   insert(transaction, callback) {
     if (transaction.type === TRANSFER_TYPE) {
       const sourceWallet = WalletsCollection.findOne(transaction.source);
-      const targetWallet = WalletsCollection.findOne(transaction.target);
 
       if (!sourceWallet) {
         throw new Meteor.Error("Source wallet not found.");
       }
-      if (!targetWallet) {
+      if (!transaction.target) {
         throw new Meteor.Error("Target wallet is required.");
       }
       if (sourceWallet.balance < transaction.amount) {

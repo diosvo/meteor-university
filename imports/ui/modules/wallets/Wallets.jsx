@@ -1,8 +1,13 @@
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import { grey, red } from "@mui/material/colors";
+import FormControl from "@mui/material/FormControl";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+
 import { useFind, useSubscribe } from "meteor/react-meteor-data";
 import { useState } from "react";
+
 import ContactsCollection from "../../../api/contacts/ContactsCollection";
 import WalletsCollection from "../../../api/wallets/WalletsCollection";
 import AlertDialog from "../../libs/AlertDialog";
@@ -80,7 +85,7 @@ export default Wallets = () => {
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <h2>{wallet._id}</h2>
           <h2>
-            <span style={{ color: red[600], marginRight: "0.5rem" }}>
+            <span style={{ color: red[500], marginRight: "0.5rem" }}>
               {wallet.balance}
             </span>
             {wallet.currency}
@@ -120,7 +125,7 @@ export default Wallets = () => {
             : "Add money to your wallet"
         }
         body={
-          <>
+          <Box width={"400px"} py={1}>
             {isTransfer && (
               <ContactSelect
                 contacts={contacts}
@@ -129,23 +134,23 @@ export default Wallets = () => {
               />
             )}
 
-            <div>
-              <label htmlFor="amount">Amount</label>
-              <input
-                id="amount"
-                type="number"
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel htmlFor="amount">Amount</InputLabel>
+              <OutlinedInput
                 min={0}
+                id="amount"
                 value={amount}
+                label="Amount"
                 placeholder="0.00"
                 onChange={(event) => setAmount(event.target.value)}
               />
-            </div>
-          </>
+            </FormControl>
+          </Box>
         }
         actions={
-          <button onClick={addTransaction}>
+          <Button variant="outlined" onClick={addTransaction}>
             {isTransfer ? "Transfer" : "Add"}
-          </button>
+          </Button>
         }
         errorMessage={error}
       />

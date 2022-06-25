@@ -16,10 +16,10 @@ const AlertDialog = forwardRef(
       aria-describedby="alert-dialog-description"
     >
       <DialogTitle id="alert-dialog-title">{title}</DialogTitle>
-      <DialogContent>
+      <DialogContent sx={{ pb: 0 }}>
         {errorMessage && (
           <DialogContentText
-            sx={{ color: red[500] }}
+            sx={{ color: red[500], fontSize: 14, mb: 1 }}
             id="alert-dialog-description"
           >
             {errorMessage}
@@ -27,7 +27,7 @@ const AlertDialog = forwardRef(
         )}
         {body}
       </DialogContent>
-      <DialogActions>{actions}</DialogActions>
+      <DialogActions sx={{ px: 3, pb: 2 }}>{actions}</DialogActions>
     </Dialog>
   )
 );

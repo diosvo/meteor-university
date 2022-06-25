@@ -92,8 +92,8 @@ export default ContactForm = () => {
           </Grid>
         </Grid>
         <Grid container mt={2}>
-          <Grid item xs={12} md={12} lg={12} required={true}>
-            <FormControl variant="outlined" fullWidth>
+          <Grid item xs={12} md={12} lg={12}>
+            <FormControl variant="outlined" fullWidth required={true}>
               <InputLabel htmlFor="walletId">Wallet ID</InputLabel>
               <OutlinedInput
                 id="walletId"
