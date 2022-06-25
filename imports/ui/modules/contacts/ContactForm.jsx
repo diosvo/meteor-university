@@ -1,5 +1,12 @@
-import { Meteor } from "meteor/meteor";
 import { useState } from "react";
+
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import FormControl from "@mui/material/FormControl";
+import Grid from "@mui/material/Grid";
+import InputLabel from "@mui/material/InputLabel";
+import OutlinedInput from "@mui/material/OutlinedInput";
+
 import AlertMessage from "../../libs/AlertMessage";
 import BannerMessage from "../../libs/BannerMessage";
 import MessageEnum from "../../utils/MessageModel";
@@ -33,8 +40,12 @@ export default ContactForm = () => {
   };
 
   return (
-    <form>
-      {error && <BannerMessage message={error} severity={MessageEnum.ERROR} />}
+    <>
+      {error && (
+        <Box mt={2}>
+          <BannerMessage message={error} severity={MessageEnum.ERROR} />
+        </Box>
+      )}
       {snackbar && (
         <AlertMessage
           open={snackbar}
@@ -43,47 +54,62 @@ export default ContactForm = () => {
         />
       )}
 
-      <div>
-        <label htmlFor="name">Name</label>
-        <input
-          id="name"
-          type="text"
-          value={name}
-          onChange={(event) => setName(event.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="imageUrl">Image URL</label>
-        <input
-          id="imageUrl"
-          type="text"
-          value={imageUrl}
-          onChange={(event) => setImageUrl(event.target.value)}
-        />
-      </div>
-      <div>
-        <label htmlFor="walletId">Wallet Id</label>
-        <input
-          id="walletId"
-          type="text"
-          value={walletId}
-          onChange={(event) => setWalletId(event.target.value)}
-        />
-      </div>
-      <div>
-        <button type="button" onClick={onSave}>
-          Save
-        </button>
-      </div>
-    </form>
+      <Box sx={{ my: 2, flexGrow: 1, maxWidth: "100%" }}>
+        <Grid container spacing={2}>
+          <Grid item xs={12} md={4} lg={4}>
+            <FormControl variant="outlined" fullWidth required={true}>
+              <InputLabel htmlFor="name">Name</InputLabel>
+              <OutlinedInput
+                id="name"
+                value={name}
+                label="Name"
+                onChange={(event) => setName(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={4} lg={4}>
+            <FormControl variant="outlined" fullWidth required={true}>
+              <InputLabel htmlFor="email">Email</InputLabel>
+              <OutlinedInput
+                id="email"
+                type="email"
+                value={email}
+                label="Email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} md={4} lg={4}>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel htmlFor="imageUrl">Image URL</InputLabel>
+              <OutlinedInput
+                id="imageUrl"
+                value={imageUrl}
+                label="Image URL"
+                onChange={(event) => setImageUrl(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+        </Grid>
+        <Grid container mt={2}>
+          <Grid item xs={12} md={12} lg={12} required={true}>
+            <FormControl variant="outlined" fullWidth>
+              <InputLabel htmlFor="walletId">Wallet ID</InputLabel>
+              <OutlinedInput
+                id="walletId"
+                value={walletId}
+                label="Wallet ID"
+                onChange={(event) => setWalletId(event.target.value)}
+              />
+            </FormControl>
+          </Grid>
+        </Grid>
+      </Box>
+      <Box sx={{ display: "flex", justifyContent: "flex-end" }}>
+        <Button variant="contained" onClick={onSave}>
+          Save Contact
+        </Button>
+      </Box>
+    </>
   );
 };

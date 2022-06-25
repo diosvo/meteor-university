@@ -5,7 +5,7 @@ const BannerMessage = forwardRef((props, ref) => (
   <Alert
     ref={ref}
     {...props}
-    elevation={6}
+    elevation={0}
     variant="outlined"
     color={props.severity}
     severity={props.severity}
