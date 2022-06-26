@@ -1,3 +1,3 @@
-- To start the project, open terminal and run:
+- To start the project, open terminal and run: `meteor`
 
-`meteor`
+- Technologies: meteor and MUI (Material UI)
