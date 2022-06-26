@@ -3,6 +3,7 @@ import { useFind, useSubscribe } from "meteor/react-meteor-data";
 import ArchiveIcon from "@mui/icons-material/Archive";
 import DeleteIcon from "@mui/icons-material/DeleteOutline";
 import Avatar from "@mui/material/Avatar";
+import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
@@ -40,7 +41,11 @@ export default ContactList = () => {
   const deleteAll = () => Meteor.call("contacts.deleteAll");
 
   if (isLoading()) {
-    return <LoadingProgress />;
+    return (
+      <Box my={1}>
+        <LoadingProgress />
+      </Box>
+    );
   }
 
   const ContactItem = React.memo(({ contact }) => {
